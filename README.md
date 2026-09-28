@@ -1,5 +1,7 @@
 # WindDown
 
+## Original idea
+
 WindDown is a focused browser-based breathing exercise for people who find it difficult to relax before sleep. Choose a one-, three-, or five-minute session and a quiet intention, then follow a gentle four-second inhale and six-second exhale rhythm.
 
 The experience includes preparation and phase countdowns, pause and resume, subtle session progress, optional soft sound cues, reduced-motion support, and an intention-aware completion message. Preferences stay on the device; WindDown does not store personal information or breathing history.
@@ -22,7 +24,21 @@ Then visit `http://127.0.0.1:4173`.
 - `styles.css` — nighttime visual design and responsive layout
 - `script.js` — synchronized breathing interaction
 
-## Project process and reflection notes
+## AI tool used
+
+I used OpenAI Codex in the Codex desktop app as a thinking and coding partner while I planned, built, tested, and published WindDown.
+
+## Selected prompts from my development process
+
+> “Create a small browser-based project called WindDown using HTML, CSS, and JavaScript. The page is for people who have trouble relaxing before sleep.”
+
+> “When the user starts, a circle should slowly expand and shrink while showing prompts like ‘Breathe in’ and ‘Breathe out.’”
+
+> “Add session length choices, a simple intention choice, a short preparation moment, clearer breathing phase feedback, subtle progress, and Pause and End controls.”
+
+> “Keep the project focused on this one interaction, but make the page feel calm, polished, and comfortable to look at.”
+
+## Reflection
 
 My original idea was to make a simple breathing website for people who have trouble relaxing before sleep. I wanted it to feel quiet and focused, instead of feeling like a complicated wellness app, and I kept the breathing pattern at four seconds in and six seconds out. I used OpenAI Codex as a thinking and coding partner. The main prompt direction was to develop the first start-and-stop prototype into a more complete experience while keeping it calm, private, and easy to understand. The first version already had the breathing circle and the correct rhythm, so this part matched my intention. However, it did not give the user much choice or clearly show the beginning, progress, and ending of a session.
 
