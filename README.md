@@ -1,6 +1,8 @@
 # WindDown
 
-WindDown is a focused browser-based breathing exercise for people who find it difficult to relax before sleep. The guide uses a gentle 4-second inhale and 6-second exhale rhythm, with a circle that expands and contracts in sync with the prompts.
+WindDown is a focused browser-based breathing exercise for people who find it difficult to relax before sleep. Choose a one-, three-, or five-minute session and a quiet intention, then follow a gentle four-second inhale and six-second exhale rhythm.
+
+The experience includes preparation and phase countdowns, pause and resume, subtle session progress, optional soft sound cues, reduced-motion support, and an intention-aware completion message. Preferences stay on the device; WindDown does not store personal information or breathing history.
 
 ## Run locally
 

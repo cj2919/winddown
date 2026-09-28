@@ -14,17 +14,19 @@
       type="image/svg+xml"
       href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%2310142b'/%3E%3Cpath d='M45 40.5A21 21 0 0 1 24 19a17 17 0 1 0 21 21.5Z' fill='%23f4d9a4'/%3E%3C/svg%3E"
     />
-    <link rel="stylesheet" href="styles.css?v=2" />
-    <script src="script.js?v=2" defer></script>
+    <link rel="stylesheet" href="styles.css?v=5" />
+    <script src="script.js?v=5" defer></script>
   </head>
-  <body>
+  <body data-state="setup">
+    <div class="ambient-glow" aria-hidden="true"></div>
+
     <main class="page-shell">
       <header class="site-header">
         <a class="brand" href="./" aria-label="WindDown home">
           <span class="brand-mark" aria-hidden="true"></span>
           <span>WindDown</span>
         </a>
-        <p class="eyebrow">A quiet minute for you</p>
+        <p class="eyebrow">A quiet moment for you</p>
       </header>
 
       <section class="practice" aria-labelledby="practice-title">
@@ -36,46 +38,134 @@
           </p>
         </div>
 
-        <div class="breathing-space">
-          <div class="orbit orbit-one" aria-hidden="true"></div>
-          <div class="orbit orbit-two" aria-hidden="true"></div>
-          <div class="breath-aura" aria-hidden="true"></div>
-          <div
-            class="breath-circle"
-            role="img"
-            aria-label="Breathing guide, ready"
-          >
-            <div class="moon-glow" aria-hidden="true"></div>
-            <div class="prompt-wrap" aria-live="polite" aria-atomic="true">
-              <p class="breath-prompt">Ready?</p>
-              <p class="breath-count" aria-hidden="true">inhale 4 · exhale 6</p>
+        <div class="setup-panel">
+          <h2 class="sr-only">Choose your breathing session</h2>
+
+          <fieldset class="choice-group duration-group">
+            <legend>Session length</legend>
+            <div class="pill-row">
+              <label class="pill-option">
+                <input type="radio" name="duration" value="1" checked />
+                <span>1 minute</span>
+              </label>
+              <label class="pill-option">
+                <input type="radio" name="duration" value="3" />
+                <span>3 minutes</span>
+              </label>
+              <label class="pill-option">
+                <input type="radio" name="duration" value="5" />
+                <span>5 minutes</span>
+              </label>
             </div>
+          </fieldset>
+
+          <fieldset class="choice-group intention-group">
+            <legend>What do you need tonight?</legend>
+            <div class="pill-row">
+              <label class="pill-option">
+                <input type="radio" name="intention" value="slow-down" checked />
+                <span>Slow down</span>
+              </label>
+              <label class="pill-option">
+                <input type="radio" name="intention" value="clear-mind" />
+                <span>Clear my mind</span>
+              </label>
+              <label class="pill-option">
+                <input type="radio" name="intention" value="ready-sleep" />
+                <span>Get ready for sleep</span>
+              </label>
+            </div>
+          </fieldset>
+
+          <button
+            class="sound-toggle"
+            type="button"
+            role="switch"
+            aria-checked="false"
+            aria-describedby="sound-help"
+          >
+            <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false">
+              <path class="speaker-path" d="M8.3 6.2 5.7 8.4H3.5v3.2h2.2l2.6 2.2V6.2Z" />
+              <path class="sound-wave" d="M11.2 7.2a4 4 0 0 1 0 5.6M13.4 5.2a6.8 6.8 0 0 1 0 9.6" />
+              <path class="sound-slash" d="m12.7 7.7 4.1 4.1m0-4.1-4.1 4.1" />
+            </svg>
+            <span class="sound-label">Sound off</span>
+          </button>
+          <p id="sound-help" class="sr-only">Optional soft tones at the start of each breath.</p>
+        </div>
+
+        <div class="session-stage">
+          <div class="breathing-space">
+            <svg class="progress-ring" viewBox="0 0 110 110" aria-hidden="true">
+              <circle class="progress-track" cx="55" cy="55" r="51" pathLength="100" />
+              <circle class="progress-value" cx="55" cy="55" r="51" pathLength="100" />
+            </svg>
+            <div class="orbit orbit-one" aria-hidden="true"></div>
+            <div class="orbit orbit-two" aria-hidden="true"></div>
+            <div class="breath-aura" aria-hidden="true"></div>
+            <div
+              class="breath-circle"
+              role="img"
+              aria-label="Breathing guide, ready"
+            >
+              <div class="moon-glow" aria-hidden="true"></div>
+              <div class="prompt-wrap">
+                <p class="breath-prompt">Ready?</p>
+                <p class="phase-count" aria-hidden="true">4 · 6</p>
+              </div>
+            </div>
+            <p class="cycle-guide" aria-hidden="true"></p>
+          </div>
+
+          <div class="controls">
+            <div class="start-controls">
+              <button class="primary-button start-button" type="button">
+                <span class="button-icon" aria-hidden="true">
+                  <svg viewBox="0 0 20 20" focusable="false">
+                    <path d="m7 5 7 5-7 5V5Z" />
+                  </svg>
+                </span>
+                <span>Begin breathing</span>
+              </button>
+            </div>
+
+            <div class="active-controls" hidden>
+              <button class="primary-button pause-button" type="button">
+                <span class="pause-icon" aria-hidden="true">
+                  <svg class="pause-symbol" viewBox="0 0 20 20" focusable="false">
+                    <path d="M6 5.5h2.6v9H6v-9Zm5.4 0H14v9h-2.6v-9Z" />
+                  </svg>
+                  <svg class="resume-symbol" viewBox="0 0 20 20" focusable="false">
+                    <path d="m7 5 7 5-7 5V5Z" />
+                  </svg>
+                </span>
+                <span class="pause-label">Pause</span>
+              </button>
+              <button class="end-button" type="button">End session</button>
+            </div>
+
+            <p class="timing-note">4 seconds in&nbsp;&nbsp;·&nbsp;&nbsp;6 seconds out</p>
           </div>
         </div>
 
-        <div class="controls">
-          <button class="session-button" type="button" aria-pressed="false">
-            <span class="button-icon" aria-hidden="true">
-              <svg class="play-icon" viewBox="0 0 20 20" focusable="false">
-                <path d="m7 5 7 5-7 5V5Z" />
-              </svg>
-              <svg class="stop-icon" viewBox="0 0 20 20" focusable="false">
-                <rect x="6" y="6" width="8" height="8" rx="2" />
-              </svg>
-            </span>
-            <span class="button-label">Begin breathing</span>
-          </button>
-          <p class="timing-note">4 seconds in&nbsp;&nbsp;·&nbsp;&nbsp;6 seconds out</p>
-        </div>
+        <section class="completion" aria-labelledby="completion-title" hidden>
+          <div class="completion-moon" aria-hidden="true"></div>
+          <p class="kicker">Session complete</p>
+          <h2 id="completion-title">You’re done for tonight.</h2>
+          <p class="completion-message">Carry this slower pace with you.</p>
+          <p class="next-step">Dim your screen. Put your phone away. Let yourself rest.</p>
+          <button class="breathe-again-button" type="button">Breathe again</button>
+        </section>
+
+        <p class="sr-only session-status" role="status" aria-live="polite" aria-atomic="true"></p>
+        <p class="sr-only sound-status" role="status" aria-live="polite"></p>
       </section>
 
       <footer class="site-footer">
         <p>Take only the breaths you need.</p>
-        <div class="soundless-note">
-          <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false">
-            <path d="M8.3 6.2 5.7 8.4H3.5v3.2h2.2l2.6 2.2V6.2Zm4.4 1.5 4.1 4.1m0-4.1-4.1 4.1" />
-          </svg>
-          <span>No sound</span>
+        <div class="footer-sound-state" aria-hidden="true">
+          <span class="footer-sound-dot"></span>
+          <span>Sound off</span>
         </div>
       </footer>
     </main>
