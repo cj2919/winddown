@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="A quiet, guided breathing exercise to help you settle before sleep."
+    />
+    <meta name="theme-color" content="#10142b" />
+    <title>WindDown — A quieter way into sleep</title>
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%2310142b'/%3E%3Cpath d='M45 40.5A21 21 0 0 1 24 19a17 17 0 1 0 21 21.5Z' fill='%23f4d9a4'/%3E%3C/svg%3E"
+    />
+    <link rel="stylesheet" href="styles.css?v=2" />
+    <script src="script.js?v=2" defer></script>
+  </head>
+  <body>
+    <main class="page-shell">
+      <header class="site-header">
+        <a class="brand" href="./" aria-label="WindDown home">
+          <span class="brand-mark" aria-hidden="true"></span>
+          <span>WindDown</span>
+        </a>
+        <p class="eyebrow">A quiet minute for you</p>
+      </header>
+
+      <section class="practice" aria-labelledby="practice-title">
+        <div class="intro">
+          <p class="kicker">Evening breathing</p>
+          <h1 id="practice-title">Let the day soften.</h1>
+          <p class="intro-copy">
+            Follow the circle at an easy pace. There is nowhere else to be.
+          </p>
+        </div>
+
+        <div class="breathing-space">
+          <div class="orbit orbit-one" aria-hidden="true"></div>
+          <div class="orbit orbit-two" aria-hidden="true"></div>
+          <div class="breath-aura" aria-hidden="true"></div>
+          <div
+            class="breath-circle"
+            role="img"
+            aria-label="Breathing guide, ready"
+          >
+            <div class="moon-glow" aria-hidden="true"></div>
+            <div class="prompt-wrap" aria-live="polite" aria-atomic="true">
+              <p class="breath-prompt">Ready?</p>
+              <p class="breath-count" aria-hidden="true">inhale 4 · exhale 6</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="controls">
+          <button class="session-button" type="button" aria-pressed="false">
+            <span class="button-icon" aria-hidden="true">
+              <svg class="play-icon" viewBox="0 0 20 20" focusable="false">
+                <path d="m7 5 7 5-7 5V5Z" />
+              </svg>
+              <svg class="stop-icon" viewBox="0 0 20 20" focusable="false">
+                <rect x="6" y="6" width="8" height="8" rx="2" />
+              </svg>
+            </span>
+            <span class="button-label">Begin breathing</span>
+          </button>
+          <p class="timing-note">4 seconds in&nbsp;&nbsp;·&nbsp;&nbsp;6 seconds out</p>
+        </div>
+      </section>
+
+      <footer class="site-footer">
+        <p>Take only the breaths you need.</p>
+        <div class="soundless-note">
+          <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false">
+            <path d="M8.3 6.2 5.7 8.4H3.5v3.2h2.2l2.6 2.2V6.2Zm4.4 1.5 4.1 4.1m0-4.1-4.1 4.1" />
+          </svg>
+          <span>No sound</span>
+        </div>
+      </footer>
+    </main>
+  </body>
+</html>
