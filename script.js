@@ -39,6 +39,7 @@ const soundLabel = document.querySelector(".sound-label");
 const footerSoundState = document.querySelector(".footer-sound-state span:last-child");
 const prompt = document.querySelector(".breath-prompt");
 const phaseCount = document.querySelector(".phase-count");
+const relaxationStateValue = document.querySelector(".relaxation-state-value");
 const guide = document.querySelector(".breath-circle");
 const cycleGuide = document.querySelector(".cycle-guide");
 const completion = document.querySelector(".completion");
@@ -52,9 +53,10 @@ let animationFrame = null;
 let sessionStartedAt = 0;
 let pausedAt = 0;
 let totalPausedMs = 0;
-let selectedDurationMs = 60000;
+let selectedDurationMs = 300000;
 let currentPhase = "ready";
 let currentPhaseCount = null;
+let currentRelaxationState = "Settling";
 let preparationRun = 0;
 let audioContext = null;
 let soundEnabled = false;
@@ -65,14 +67,16 @@ function getSelectedValue(inputs) {
 }
 
 function readPreferences() {
-  const defaults = { duration: "1", intention: "slow-down", sound: false };
+  const defaults = { duration: "5", intention: "slow-down", sound: false };
 
   try {
     const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
     if (!saved || typeof saved !== "object") return defaults;
 
     return {
-      duration: ["1", "3", "5"].includes(saved.duration) ? saved.duration : defaults.duration,
+      duration: ["5", "10", "15"].includes(saved.duration)
+        ? saved.duration
+        : defaults.duration,
       intention: Object.hasOwn(INTENTIONS, saved.intention)
         ? saved.intention
         : defaults.intention,
@@ -213,6 +217,21 @@ function getSessionElapsed(timestamp) {
   return Math.max(0, timestamp - sessionStartedAt - totalPausedMs);
 }
 
+function getRelaxationState(remaining, total) {
+  if (remaining > (total * 2) / 3) return "Settling";
+  if (remaining > total / 3) return "Calming";
+  return "Resting";
+}
+
+function updateRelaxationState(elapsed) {
+  const remaining = Math.max(0, selectedDurationMs - elapsed);
+  const nextState = getRelaxationState(remaining, selectedDurationMs);
+
+  if (nextState === currentRelaxationState) return;
+  currentRelaxationState = nextState;
+  relaxationStateValue.textContent = nextState;
+}
+
 function renderSession(timestamp) {
   if (mode !== "breathing") return;
 
@@ -221,6 +240,8 @@ function renderSession(timestamp) {
     finishSession(false);
     return;
   }
+
+  updateRelaxationState(elapsed);
 
   const cycleTime = elapsed % CYCLE_MS;
   const firstCycle = elapsed < CYCLE_MS;
@@ -271,6 +292,8 @@ async function startSession() {
   if (mode !== "setup") return;
 
   selectedDurationMs = Number(getSelectedValue(durationInputs)) * 60000;
+  currentRelaxationState = "Settling";
+  relaxationStateValue.textContent = currentRelaxationState;
   const run = ++preparationRun;
   setMode("preparing");
   root.style.setProperty("--session-progress", "0");
@@ -297,6 +320,7 @@ function beginBreathing() {
   totalPausedMs = 0;
   currentPhase = "ready";
   currentPhaseCount = null;
+  currentRelaxationState = "Settling";
   setMode("breathing");
   renderSession(sessionStartedAt);
 }
@@ -355,9 +379,11 @@ function resetSession() {
   animationFrame = null;
   currentPhase = "ready";
   currentPhaseCount = null;
+  currentRelaxationState = "Settling";
   startButton.disabled = false;
   prompt.textContent = "Ready?";
   phaseCount.textContent = "4 · 6";
+  relaxationStateValue.textContent = currentRelaxationState;
   cycleGuide.textContent = "";
   cycleGuide.style.opacity = "0";
   guide.setAttribute("aria-label", "Breathing guide, ready");

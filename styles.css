@@ -501,6 +501,20 @@ h1 {
   transition: opacity 700ms ease;
 }
 
+.relaxation-state {
+  min-height: 1.25rem;
+  margin: -0.35rem 0 0.55rem;
+  color: rgba(219, 211, 226, 0.72);
+  font-size: 0.75rem;
+  letter-spacing: 0.16em;
+  opacity: 0;
+  text-transform: uppercase;
+  visibility: hidden;
+  transition:
+    opacity 700ms ease,
+    color 700ms ease;
+}
+
 .orbit {
   position: absolute;
   z-index: 1;
@@ -777,6 +791,16 @@ body[data-state="paused"] .progress-ring {
 body[data-state="paused"] .breath-circle,
 body[data-state="paused"] .breath-aura {
   filter: saturate(0.78);
+}
+
+body[data-state="breathing"] .relaxation-state,
+body[data-state="paused"] .relaxation-state {
+  opacity: 1;
+  visibility: visible;
+}
+
+body[data-state="paused"] .relaxation-state {
+  color: rgba(195, 197, 218, 0.58);
 }
 
 body[data-state="complete"] .intro,
